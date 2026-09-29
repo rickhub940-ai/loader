@@ -1443,7 +1443,7 @@ end)()
 -- =========================================================================
 -- [ส่วนที่ 2] ตัวอย่างการใช้งาน
 -- =========================================================================
-local Window = ui:createWindow("ReaperX (Made by x2Swiftz)", "lucide:zap", "Dungeon: Northern Lands")
+local Window = ui:createWindow("999ms Test Ui Demo", "lucide:zap", "Sixzens is Gay")
 
 local AutoFarmTab  = Window:newTab("Auto Farm",    "lucide:swords")
 local AutoRaidTab  = Window:newTab("Auto Raids",   "lucide:skull")
