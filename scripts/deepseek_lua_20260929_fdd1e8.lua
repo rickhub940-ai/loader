@@ -1443,113 +1443,203 @@ end)()
 -- =========================================================================
 -- [ส่วนที่ 2] ตัวอย่างการใช้งาน
 -- =========================================================================
-local Window = ui:createWindow("999ms Test Ui Demo", "lucide:zap", "Sixzens is Gay")
+local Window = ui:createWindow(
+    "999ms UI Test",
+    "lucide:zap",
+    "Sixzens is gay"
+)
 
-local AutoFarmTab  = Window:newTab("Auto Farm",    "lucide:swords")
-local AutoRaidTab  = Window:newTab("Auto Raids",   "lucide:skull")
-local AutoPartyTab = Window:newTab("Auto Party",   "lucide:users")
-local AutoSellTab  = Window:newTab("Auto Sell",    "lucide:shopping-cart")
-local AutoCrateTab = Window:newTab("Auto Crates",  "lucide:gift")
-local WebhookTab   = Window:newTab("Webhook",      "lucide:bell")
-local UtilityTab   = Window:newTab("Utilities",    "lucide:globe")
-local ServerTab    = Window:newTab("Servers",      "lucide:server")
+local MainTab = Window:newTab(
+    "Main",
+    "lucide:home"
+)
 
--- ===== Auto Farm =====
-AutoFarmTab:section("Combat", "lucide:swords", "Left")
-AutoFarmTab:toggle("Combat", { flag = "combat", default = true, side = "Left", icon = "lucide:swords", card = true, subtitle = "Dungeon Farming" }, false, {}, function(s) end)
-AutoFarmTab:toggle("Auto Farm",   { flag = "autoFarm",   default = false, side = "Left" }, false, {}, function(s) end)
-AutoFarmTab:toggle("Auto Attack", { flag = "autoAttack", default = false, side = "Left" }, false, {}, function(s) end)
+--// Left
+MainTab:section(
+    "Left Controls",
+    "lucide:panel-left",
+    "Left"
+)
 
-AutoFarmTab:section("Abilities", "lucide:star", "Left")
-AutoFarmTab:toggle("Abilities", { flag = "abilities", default = true, side = "Left", icon = "lucide:star", card = true, subtitle = "Skill automation" }, false, {}, function(s) end)
-AutoFarmTab:toggle("Auto Skills", { flag = "autoSkills", default = true, side = "Left", icon = "lucide:zap" }, false, {}, function(s) end)
-AutoFarmTab:slider("Attack Range", { flag = "atkRange",  min = 1,  max = 100, default = 20, step = 1, side = "Left" }, function(v) end)
-AutoFarmTab:slider("Walk Speed",   { flag = "walkSpeed", min = 16, max = 200, default = 20, step = 1, side = "Left" }, function(v) end)
+MainTab:button(
+    "Left Button",
+    function()
+        ui:notify("Left", "Button clicked!", 3)
+    end,
+    "lucide:mouse-pointer-click",
+    {
+        side = "Left"
+    }
+)
 
-AutoFarmTab:section("Auto Restart", "lucide:rotate-cw", "Left")
-AutoFarmTab:toggle("Auto Restart", { flag = "autoRestart", default = true, side = "Left", icon = "lucide:rotate-cw", card = true, subtitle = "Restart game after seconds." }, false, {}, function(s) end)
-AutoFarmTab:slider("Restart After", { flag = "restartAfter", min = 10, max = 600, default = 60, step = 10, side = "Left" }, function(v) end)
+MainTab:toggle(
+    "Left Toggle",
+    {
+        flag = "leftToggle",
+        default = false,
+        side = "Left"
+    },
+    false,
+    {},
+    function(value)
+    end
+)
 
-AutoFarmTab:section("Launch", "lucide:play", "Right")
-AutoFarmTab:toggle("Launch", { flag = "launch", default = true, side = "Right", icon = "lucide:play", card = true, subtitle = "Create a Dungeon" }, false, {}, function(s) end)
-AutoFarmTab:toggle("Auto Start", { flag = "autoStart", default = false, side = "Right" }, false, {}, function(s) end)
-AutoFarmTab:toggle("Auto Select Best Dungeon", { flag = "autoSelect", default = false, side = "Right" }, false, {}, function(s) end)
-AutoFarmTab:dropdown("Dungeon", false, { flag = "dungeon", side = "Right", list = {"Desert Temple", "Northern Lands", "Frozen Kingdom", "Volcano"} }, function(sel) end)
-AutoFarmTab:dropdown("Difficulty", false, { flag = "difficulty", side = "Right", list = {"Easy", "Medium", "Hard", "Nightmare"} }, function(sel) end)
-AutoFarmTab:toggle("Hardcore", { flag = "hardcore", default = false, side = "Right" }, false, {}, function(s) end)
+MainTab:slider(
+    "Left Slider",
+    {
+        flag = "leftSlider",
+        min = 0,
+        max = 100,
+        default = 50,
+        step = 1,
+        side = "Left"
+    },
+    function(value)
+    end
+)
 
-AutoFarmTab:section("Loop", "lucide:refresh-cw", "Right")
-AutoFarmTab:toggle("Loop", { flag = "loop", default = true, side = "Right", icon = "lucide:refresh-cw", card = true, subtitle = "Repeat dungeon runs" }, false, {}, function(s) end)
-AutoFarmTab:toggle("Auto Replay",        { flag = "autoReplay", default = false, side = "Right" }, false, {}, function(s) end)
-AutoFarmTab:toggle("Auto Back to Lobby", { flag = "autoLobby",  default = false, side = "Right" }, false, {}, function(s) end)
-AutoFarmTab:slider("Back to Lobby After", { flag = "backLobbyAfter", min = 1, max = 50, default = 5, step = 1, side = "Right" }, function(v) end)
+MainTab:dropdown(
+    "Left Dropdown",
+    false,
+    {
+        flag = "leftDropdown",
+        side = "Left",
+        list = {
+            "Option 1",
+            "Option 2",
+            "Option 3"
+        }
+    },
+    function(value)
+    end
+)
 
--- ===== Auto Raids =====
-AutoRaidTab:section("Raid Settings", "lucide:skull", "Left")
-AutoRaidTab:toggle("Auto Raid", { flag = "autoRaid", default = false, side = "Left", icon = "lucide:skull", card = true, subtitle = "Auto join raid" }, false, {}, function(s) end)
-AutoRaidTab:toggle("Auto Attack Boss", { flag = "autoBoss", default = false, side = "Left" }, false, {}, function(s) end)
-AutoRaidTab:dropdown("เลือก Raid", false, { flag = "raidType", side = "Right", list = {"Raid 1", "Raid 2", "Raid 3", "Raid 4"} }, function(sel) end)
-AutoRaidTab:slider("Attack Range", { flag = "raidRange", min = 1, max = 100, default = 30, step = 1, side = "Right" }, function(v) end)
+--// Right
+MainTab:section(
+    "Right Controls",
+    "lucide:panel-right",
+    "Right"
+)
 
--- ===== Auto Party =====
-AutoPartyTab:section("Party Settings", "lucide:users", "Left")
-AutoPartyTab:toggle("Auto Accept Party", { flag = "autoAccept", default = false, side = "Left", icon = "lucide:check-circle" }, false, {}, function(s) end)
-AutoPartyTab:toggle("Auto Leave Party",  { flag = "autoLeave",  default = false, side = "Left" }, false, {}, function(s) end)
-AutoPartyTab:textbox("ชื่อผู้เล่นที่ต้องการเชิญ", { flag = "invitePlayer", default = "...", side = "Right" }, function(text) end)
-AutoPartyTab:slider("Party Size", { flag = "partySize", min = 1, max = 4, default = 4, step = 1, side = "Right" }, function(v) end)
-AutoPartyTab:button("เชิญผู้เล่นทั้งหมด", function()
-    ui:notify("Auto Party", "เชิญผู้เล่นทั้งหมดแล้ว!", 3)
-end, "lucide:user-plus", { side = "Left" })
+MainTab:button(
+    "Right Button",
+    function()
+        ui:notify("Right", "Button clicked!", 3)
+    end,
+    "lucide:mouse-pointer-click",
+    {
+        side = "Right"
+    }
+)
 
--- ===== Auto Sell =====
-AutoSellTab:section("Sell Settings", "lucide:shopping-cart", "Left")
-AutoSellTab:toggle("Auto Sell", { flag = "autoSell", default = false, side = "Left", icon = "lucide:shopping-cart", card = true, subtitle = "Auto sell items" }, false, {}, function(s) end)
-AutoSellTab:toggle("Sell Common",    { flag = "sellCommon",    default = true,  side = "Left" }, false, {}, function(s) end)
-AutoSellTab:toggle("Sell Rare",      { flag = "sellRare",      default = false, side = "Left" }, false, {}, function(s) end)
-AutoSellTab:toggle("Sell Epic",      { flag = "sellEpic",      default = false, side = "Right" }, false, {}, function(s) end)
-AutoSellTab:toggle("Sell Legendary", { flag = "sellLegendary", default = false, side = "Right" }, false, {}, function(s) end)
-AutoSellTab:slider("Sell Delay", { flag = "sellDelay", min = 1, max = 60, default = 5, step = 1, side = "Right" }, function(v) end)
+MainTab:toggle(
+    "Right Toggle",
+    {
+        flag = "rightToggle",
+        default = false,
+        side = "Right"
+    },
+    false,
+    {},
+    function(value)
+    end
+)
 
--- ===== Auto Crates =====
-AutoCrateTab:section("Crate Settings", "lucide:gift", "Left")
-AutoCrateTab:toggle("Auto Open Crate", { flag = "autoCrate", default = false, side = "Left", icon = "lucide:gift", card = true, subtitle = "Auto open crates" }, false, {}, function(s) end)
-AutoCrateTab:dropdown("เลือก Crate", false, { flag = "crateType", side = "Right", list = {"Common Crate", "Rare Crate", "Epic Crate", "Legendary Crate"} }, function(sel) end)
-AutoCrateTab:slider("จำนวนที่เปิด", { flag = "crateAmount", min = 1, max = 100, default = 10, step = 1, side = "Left" }, function(v) end)
-AutoCrateTab:button("เปิด Crate ทันที", function()
-    ui:notify("Auto Crates", "เปิด Crate เรียบร้อย!", 3)
-end, "lucide:package-open", { side = "Right" })
+MainTab:slider(
+    "Right Slider",
+    {
+        flag = "rightSlider",
+        min = 0,
+        max = 100,
+        default = 50,
+        step = 1,
+        side = "Right"
+    },
+    function(value)
+    end
+)
 
--- ===== Webhook =====
-WebhookTab:section("Webhook Settings", "lucide:bell", "Left")
-WebhookTab:toggle("Enable Webhook", { flag = "enableWebhook", default = false, side = "Left", icon = "lucide:bell", card = true, subtitle = "Send notifications to Discord" }, false, {}, function(s) end)
-WebhookTab:toggle("Notify on Rare Drop", { flag = "notifyRare",  default = true, side = "Left" }, false, {}, function(s) end)
-WebhookTab:toggle("Notify on Level Up",  { flag = "notifyLevel", default = true, side = "Left" }, false, {}, function(s) end)
-WebhookTab:textbox("Webhook URL", { flag = "webhookUrl", default = "https://discord.com/api/webhooks/...", side = "Right" }, function(text) end)
-WebhookTab:button("ทดสอบ Webhook", function()
-    ui:notify("Webhook", "ส่งข้อความทดสอบแล้ว!", 3)
-end, "lucide:send", { side = "Right" })
+MainTab:dropdown(
+    "Right Dropdown",
+    false,
+    {
+        flag = "rightDropdown",
+        side = "Right",
+        list = {
+            "Option A",
+            "Option B",
+            "Option C"
+        }
+    },
+    function(value)
+    end
+)
 
--- ===== Utilities =====
-UtilityTab:section("การแจ้งเตือน", "lucide:bell", "Left")
-UtilityTab:button("แจ้งเตือนสำเร็จ", function() ui:notify("สำเร็จ", "ระบบทำงานปกติ!", 3) end, "lucide:check-circle", { side = "Left" })
-UtilityTab:button("แจ้งเตือนข้อผิดพลาด", function() ui:notify("ผิดพลาด", "เกิดข้อผิดพลาด!", 3) end, "lucide:alert-circle", { side = "Left" })
+MainTab:textbox(
+    "Right TextBox",
+    {
+        flag = "rightTextbox",
+        default = "Type here...",
+        side = "Right"
+    },
+    function(text)
+    end
+)
 
-UtilityTab:section("ตั้งค่าธีม", "lucide:palette", "Right")
-UtilityTab:button("ธีมแดง",   function() ui:setTheme(Color3.fromRGB(255, 59, 59))  end, "lucide:palette", { side = "Right" })
-UtilityTab:button("ธีมเขียว", function() ui:setTheme(Color3.fromRGB(0, 200, 100)) end, "lucide:palette", { side = "Right" })
-UtilityTab:button("ธีมฟ้า",   function() ui:setTheme(Color3.fromRGB(0, 150, 255)) end, "lucide:palette", { side = "Right" })
-UtilityTab:button("ธีมม่วง",  function() ui:setTheme(Color3.fromRGB(150, 0, 255)) end, "lucide:palette", { side = "Right" })
+--// Theme
+MainTab:section(
+    "Themes",
+    "lucide:palette",
+    "Left"
+)
 
-UtilityTab:section("อื่นๆ", "lucide:settings", "Left")
-UtilityTab:toggle("Anti AFK",    { flag = "antiAfk",    default = true,  side = "Left", icon = "lucide:user-check" }, false, {}, function(s) end)
-UtilityTab:toggle("Auto Rejoin", { flag = "autoRejoin", default = false, side = "Left", icon = "lucide:log-in" }, false, {}, function(s) end)
+MainTab:button(
+    "Red Theme",
+    function()
+        ui:setTheme(Color3.fromRGB(255, 59, 59))
+    end,
+    "lucide:palette",
+    {
+        side = "Left"
+    }
+)
 
--- ===== Servers =====
-ServerTab:section("Server Hop", "lucide:server", "Left")
-ServerTab:toggle("Auto Server Hop", { flag = "autoHop", default = false, side = "Left", icon = "lucide:refresh-cw", card = true, subtitle = "Hop to a new server" }, false, {}, function(s) end)
-ServerTab:slider("Hop Delay", { flag = "hopDelay", min = 5, max = 300, default = 30, step = 5, side = "Right" }, function(v) end)
-ServerTab:dropdown("เลือก Region", false, { flag = "region", side = "Right", list = {"Singapore", "Japan", "USA", "Europe", "Auto"} }, function(sel) end)
-ServerTab:button("Rejoin Server",  function() ui:notify("Server", "กำลัง Rejoin...", 2) end, "lucide:log-in",   { side = "Left" })
-ServerTab:button("Hop Server ใหม่", function() ui:notify("Server", "กำลัง Hop...",    2) end, "lucide:shuffle", { side = "Right" })
+MainTab:button(
+    "Green Theme",
+    function()
+        ui:setTheme(Color3.fromRGB(0, 200, 100))
+    end,
+    "lucide:palette",
+    {
+        side = "Left"
+    }
+)
 
-ui:notify("ยินดีต้อนรับ", "โหลด UI เรียบร้อย! กด RightControl เพื่อซ่อน", 5)
+MainTab:button(
+    "Blue Theme",
+    function()
+        ui:setTheme(Color3.fromRGB(0, 150, 255))
+    end,
+    "lucide:palette",
+    {
+        side = "Right"
+    }
+)
+
+MainTab:button(
+    "Purple Theme",
+    function()
+        ui:setTheme(Color3.fromRGB(150, 0, 255))
+    end,
+    "lucide:palette",
+    {
+        side = "Right"
+    }
+)
+
+ui:notify(
+    "999ms UI Test",
+    "UI loaded successfully!",
+    5
+)
